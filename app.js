@@ -2,6 +2,9 @@
 // Sp = Star Power
 const p1Deck = []
 const p2Deck = []
+const p1Shuffle = []
+const p2Shuffle = []
+const globalShuffle = []
 class Card {
     constructor(name, atk, def, sp, accuracy, dodge, ability, abilityText) {
         this.name = name
@@ -58,24 +61,62 @@ rdj: new Card("Robert Downey Jr.",2,5,20,100,0,true,"You gain 5 star power for e
 super: new Card("Henry Cavil",5,8,30,100,0,false,"No Ability"),
 morgan: new Card("Morgan Freeman",3,2,10,100,30,true,"Has a 30% chance to dodge any attack."),
 }
-// Object.entries(celebs).forEach((celeb) => {
-//     p1Deck += celeb
-// })
-// console.log(p1Deck)
+Object.entries(celebs).forEach((celeb) => {
+    globalShuffle.push(celeb)
+}
+)
 
-
-
-  /*----- state variables -----*/
+/*----- state variables -----*/
 let player1 = 30
 let player2 = 30
 let sp1 = 20
 let sp2 = 20
 let spGain = 20
 
-  /*----- cached elements  -----*/
+/*----- functions -----*/
+
+
+function shuffleCards(deck) {
+for (let i = deck.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * i);
+    let temp = deck[i];
+    deck[i] = deck[j];
+    deck[j] = temp;
+} 
+}
+
+
+function chooseDecks(player) {
+    globalShuffle.forEach((celeb) => {
+        while (player.length <= 9) {
+            if (Math.random() > 0.3) {
+    player.push(celeb)
+    break
+    } else {
+        break
+    }
+} shuffleCards(globalShuffle)
+while (p1Deck.length <= 9) {
+    if (Math.random() > 0.3) {
+    player.push(celeb)
+    break
+    } else {
+        break
+    }
+}
+})
+}
+
+
+/*----- cached elements  -----*/
 
 
   /*----- event listeners -----*/
 
+// Main Code
+shuffleCards(globalShuffle)
+chooseDecks(p1Deck)
+chooseDecks(p2Deck)
+shuffleCards(p1Deck)
+shuffleCards(p2Deck)
 
-  /*----- functions -----*/
