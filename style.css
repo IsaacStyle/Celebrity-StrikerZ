@@ -1,0 +1,85 @@
+.title {
+    text-align: center;
+    font-size: 50px;
+}
+.player1 {
+    /* border: solid blue; */
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: row;
+}
+.player1 div {
+    border: solid blue;
+}
+.player2 {
+    /* border: solid red; */
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: row;
+}
+.player2 div {
+    border: solid red;
+}
+.zone {
+    height: 30vh;
+    width: 12vw;
+    margin: 2px;
+    background-color: grey;
+    border-radius: 15px;
+}
+.left {
+    float: left;
+    margin-left: 60px;
+    font-size: 30px;
+}
+.right {
+    float: right;
+    margin-right: 60px;
+    font-size: 30px;
+}
+.player1cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: -2;
+    float: left;
+    margin-left: 85px;
+}
+.player2cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: -2;
+    float: right;
+    margin-right: 85px;
+}
+.zonecards {
+    height: 16vh;
+    width: 6vw;
+    margin: 2px;
+    background-color: grey;
+    border-radius: 15px;
+    border: solid;
+}
+.sp1 {
+    float: left;
+    margin-left: 130px;
+}
+.sp2 {
+    float: right;
+    margin-right: 130px;
+}
+.sp1value {
+    float: left;
+    margin-left: 130px;
+    display: flex;
+}
+.sp2value {
+    float: right;
+    margin-right: 130px;
+    display: flex;
+
+}
+
