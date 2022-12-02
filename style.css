@@ -30,18 +30,18 @@ body {
     border: solid red;
 }
 .zone {
-    height: 30vh;
-    width: 12vw;
-    margin: 2px;
+    height: 252px;
+    width: 204px;
+    margin: 10px;
     background-color: grey;
     border-radius: 15px;
 }
-.left {
+.p1Life {
     float: left;
     margin-left: 60px;
     font-size: 30px;
 }
-.right {
+.p2Life {
     float: right;
     margin-right: 60px;
     font-size: 30px;
@@ -70,6 +70,14 @@ body {
     border-radius: 15px;
     border: solid;
 }
+/* #zonecards {
+    height: 16vh;
+    width: 6vw;
+    margin: 2px;
+    background-color: grey;
+    border-radius: 15px;
+    border: solid;
+} */
 .sp1 {
     float: left;
     margin-left: 130px;
@@ -90,3 +98,91 @@ body {
 
 }
 
+#card {
+    height: 252px;
+    width: 204px;
+    margin: 2px;
+    background-color: rgb(255, 184, 96);
+    border-radius: 15px;
+    border: solid;
+    
+}
+#card:hover {
+  box-shadow: 0 8px 16px 0 rgba(255, 6, 6, 0.2);
+}
+.spcost {
+    position:sticky;
+    display:inline;
+    font-size: 35px;
+    margin-left: -10px;
+    margin-top: -20px;
+    border:solid black;
+    border-radius: 80px;
+    background-color: rgb(1, 211, 211);
+    font-weight: 800;
+    color: white;
+    border-width: 3px;
+    z-index: 7;
+    
+}
+.cardimgbox {
+ 
+    height: 15vh;
+    width: 9vw;
+    border: solid;
+    margin-top: -30px;
+    margin-left: 24px;
+    z-index: 1;
+    border-radius: 15px;
+    background-image: url(https://i.kym-cdn.com/photos/images/original/002/467/715/082.jpg);
+    background-size: cover;
+    background-position: 0 auto;
+    background-position-x: -20px;
+
+    
+}
+.atk {
+    position: sticky;
+    margin-top: 8vh;
+    margin-left: -0.5vw;
+    font-size: 35px;
+    border:solid black;
+    border-radius: 80px;
+    background-color: rgb(211, 1, 1);
+    font-weight: 800;
+    color: white;
+    border-width: 3px;
+    z-index: 1;
+    width: 30px;
+    text-align: center;
+}
+.def {
+    position: sticky;
+    font-size: 35px;
+    margin-left: 10.5vw;
+    margin-top: -5.5vh;
+    border:solid black;
+    border-radius: 80px;
+    background-color: rgb(1, 211, 211);
+    font-weight: 800;
+    color: white;
+    border-width: 3px;
+    z-index: 1;
+    width: 30px;
+    text-align: center;
+}
+.name {
+  
+  font-size: 15px;
+  border: solid;
+  font-weight:700;
+  inline-size: 20vw;
+  margin-left: 10px;
+}
+.ability {
+    position: absolute;
+    font-size: 14px;
+    inline-size: 10vw;
+    margin-left: 25px;
+    margin-top: 0px;
+}

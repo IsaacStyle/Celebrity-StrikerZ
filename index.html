@@ -4,39 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Celebrity StrikerZ</title>
     <link rel="stylesheet" href="./style.css">
-    <script src="./app.js"></script>
+    <script src="./app.js" defer></script>
 </head>
 <body>
-    <h1 class="title"><span class="left"> Player 1 Life: 30</span> Celebrity StrikerZ<span class="right">Player 2 Life: 30</span></h1>
+    <h1 class="title"><span class="p1Life"> Player 1 Life: 30</span> Celebrity StrikerZ<span class="p2Life">Player 2 Life: 30</span></h1>
     <div class="player1cards">
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
+        <div class="zonecards" id="p1Hand" draggable="true" ondragstart="onDragStart(event)"></div>
+        <div class="zonecards" id="p1Hand"></div>
+        <div class="zonecards" id="p1Hand"></div>
+        <div class="zonecards" id="p1Hand"></div>
+        <div class="zonecards" id="p1Hand"></div>
     </div>
     <div class="player2cards">
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
-        <div class="zonecards" id="p1"></div>
+        <div class="zonecards" id="p2Hand"></div>
+        <div class="zonecards" id="p2Hand"></div>
+        <div class="zonecards" id="p2Hand"></div>
+        <div class="zonecards" id="p2Hand"></div>
+        <div class="zonecards" id="p2Hand"></div>
     </div>
     <div class="player1">
-        <div class="zone" id="p1"></div>
-        <div class="zone" id="p1"></div>
-        <div class="zone" id="p1"></div>
-        <div class="zone" id="p1"></div>
-        <div class="zone" id="p1"></div>
+        <div class="zone" id="p1Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p1Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p1Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p1Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p1Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
     </div>
     <div class="player2">
-        <div class="zone" id="p2"></div>
-        <div class="zone" id="p2"></div>
-        <div class="zone" id="p2"></div>
-        <div class="zone" id="p2"></div>
-        <div class="zone" id="p2"></div>
+        <div class="zone" id="p2Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p2Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p2Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p2Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+        <div class="zone" id="p2Z" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
     </div>
 
     <h3 class="sp0"><span class="sp1">Player 1 Star Power:</span> <span class="sp2">Player 2 Star Power:</span></h3>
