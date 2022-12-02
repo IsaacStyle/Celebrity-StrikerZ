@@ -11,7 +11,7 @@ const p1Hand = document.querySelectorAll('#p1Hand')
 const p2Hand = document.querySelectorAll('#p2Hand')
 
 class Card {
-    constructor(name, atk, def, spcost, accuracy, dodge, ability, abilityText) {
+    constructor(name, atk, def, spcost, accuracy, dodge, ability, abilityText, img) {
         this.name = name
         this.atk = atk
         this.def = def
@@ -20,6 +20,7 @@ class Card {
         this.dodge = dodge
         this.ability = ability
         this.abilityText = abilityText
+        this.img = img
     }
     takeDamage(num) {
         return this.def -= num
@@ -45,26 +46,26 @@ class Card {
 
 }
 const celebs = {
-cardib: new Card("Cardi B.",3,3,10,100,0,false,"No ability"),
-nicki: new Card("Nicki Minaj",4,5,20,100,0,false,"No ability"),
-rock: new Card("Dwayne Johnson",8,8,40,100,0,false,"No ability"),
-thor: new Card("Chris Helmsworh", 4,8,30,100,0,true,"Any card attacked by this card loses 2 atk and 50% accuracy."),
-hart: new Card("Kevin Hart", 2,2,10,100,50,true,"This card has a 50% chance to dodge any attack. Takes no damage while attacking."),
-peter: new Card("Peter Dinklage",2,1,0,100,0,true,"This card requires no star power to cast"),
-megan: new Card("Megan The Stallion",3,4,20,100,0,true,"This card can perform 2 attacks per turn"),
-nas: new Card("Lil Nas X",5,5,30,100,20,true,"While on the stage, your opponent's cards lose 20% accuracy. This card has a 20% chance to dodge any attack."),
-terminator: new Card("Arnorld Shwartzenager?",10,10,40,40,0,true,"Only has a 40% chance to hit any attack."),
-betty: new Card("Betty White",2,2,10,100,0,true,"Increase your life by 3 points while in battle."),
-obama: new Card("Barrack Obama",6,6,40,100,0,true,"Raises the attack of all cards on your stage by 2"),
-taylor: new Card("Taylor Swift",5,5,30,100,0,true,"Raises your starpower by 10 when cast and on every turn she remains on the field."),
-trump: new Card("Donald Trump",6,6,40,100,0,true,"Raises the defense of all cards on your stage by 2."),
-gaga: new Card("Lady Gaga",6,7,30,100,0,false,"No Ability"),
-harry: new Card("Daniel Radcliffe",2,4,20,100,0,true,"Increases the def of all your cards by 1."),
-jim: new Card("Jim Carey",4,2,10,100,0,false,"No Ability"),
-tom: new Card("Tom Cruise",5,4,20,70,0,true,"Has a 70% chance to hit any attack."),
-rdj: new Card("Robert Downey Jr.",2,5,20,100,0,true,"You gain 5 star power for each battle this card is a part of."),
-super: new Card("Henry Cavil",5,8,30,100,0,false,"No Ability"),
-morgan: new Card("Morgan Freeman",3,2,10,100,30,true,"Has a 30% chance to dodge any attack."),
+cardib: new Card("Cardi B.",3,3,10,100,0,false,"No ability", './Card Images/cardib.jpeg'),
+nicki: new Card("Nicki Minaj",4,5,20,100,0,false,"No ability", './Card Images/nicki-minaj.webp'),
+rock: new Card("Dwayne Johnson",8,8,40,100,0,false,"No ability", './Card Images/therock.webp'),
+thor: new Card("Chris Helmsworh", 4,8,30,100,0,true,"Any card attacked by this card loses 2 atk and 50% accuracy.", './Card Images/thor.jpeg'),
+hart: new Card("Kevin Hart", 2,2,10,100,50,true,"This card has a 50% chance to dodge any attack. Takes no damage while attacking.", './Card Images/960x0.jpeg'),
+peter: new Card("Peter Dinklage",2,1,0,100,0,true,"This card requires no star power to cast", './Card Images/peter.webp'),
+megan: new Card("Megan The Stallion",3,4,20,100,0,true,"This card can perform 2 attacks per turn", './Card Images/megan.jpeg'),
+nas: new Card("Lil Nas X",5,5,30,100,20,true,"While on the stage, your opponent's cards lose 20% accuracy. This card has a 20% chance to dodge any attack.", './Card Images/nas.jpeg'),
+terminator: new Card("Arnorld Shwartzenegger",10,10,40,40,0,true,"Only has a 40% chance to hit any attack.", './Card Images/terminator.webp'),
+betty: new Card("Betty White",2,2,10,100,0,true,"Increase your life by 3 points while in battle.", './Card Images/betty.webp'),
+obama: new Card("Barack Obama",6,6,40,100,0,true,"Raises the attack of all cards on your stage by 2", './Card Images/obama.jpeg'),
+taylor: new Card("Taylor Swift",5,5,30,100,0,true,"Raises your starpower by 10 when cast and on every turn she remains on the field.", './Card Images/taylor.webp'),
+trump: new Card("Donald Trump",6,6,40,100,0,true,"Raises the defense of all cards on your stage by 2.", './Card Images/trump.jpeg'),
+gaga: new Card("Lady Gaga",6,7,30,100,0,false,"No Ability", './Card Images/gaga.jpeg'),
+harry: new Card("Daniel Radcliffe",2,4,20,100,0,true,"Increases the def of all your cards by 1.", './Card Images/harry.jpeg'),
+jim: new Card("Jim Carey",4,2,10,100,0,false,"No Ability", './Card Images/jim.webp'),
+tom: new Card("Tom Cruise",5,4,20,70,0,true,"Has a 70% chance to hit any attack.", './Card Images/tom.jpeg'),
+rdj: new Card("Robert Downey Jr.",2,5,20,100,0,true,"You gain 5 star power for each battle this card is a part of.", './Card Images/rdj.webp'),
+super: new Card("Henry Cavil",5,8,30,100,0,false,"No Ability", './Card Images/superman.jpeg'),
+morgan: new Card("Morgan Freeman",3,2,10,100,30,true,"Has a 30% chance to dodge any attack.", './Card Images/morgan.png'),
 }
 Object.entries(celebs).forEach((celeb) => {
     globalShuffle.push(celeb)
@@ -87,13 +88,14 @@ function onDragOver(ev) {
   
   function onDragStart(ev) {
     ev.dataTransfer.setData("text", ev.target.id)
+    console.log(ev.path[0].card)
   }
   
   function onDrop(ev) {
     ev.preventDefault()
     let data = ev.dataTransfer.getData("text")
     ev.target.appendChild(document.getElementById(data))
-    
+    console.log(ev.path[0].children[0].card)
   }
 //   Drag Code End
 
@@ -147,35 +149,44 @@ function directDamage(card1, playerLife) {
 function initialDraw() {
     let j = 0
     for(let i = 0;i < 5;i++) {
+        const p1Card = p1Deck[i][1];
         p1Hand[j].innerHTML = `<div id="card" draggable="true" ondragstart="onDragStart(event)">
-<div class="spcost">${p1Deck[i][1].spcost}</div>
-<div class="cardimgbox"><img src="" alt="">
-    <!-- <div class="cardimg"></div> -->
-</div>
-<div class="ability"><span class="name">${p1Deck[i][1].name}<br></span> ${p1Deck[i][1].abilityText} </div> 
-<div class="atk">${p1Deck[i][1].atk}</div>   
-<div class="def">${p1Deck[i][1].def}</div>
-</div>`
+        <div class="spcost">${p1Card.spcost}</div>
+        <div class="cardimgbox">
+            <img class="cardimg" src="${p1Card.img}" alt="${p1Card.name}" draggable='false'>
+            <!-- <div class="cardimg"></div> -->
+        </div>
+        <div class="ability"><span class="name">${p1Card.name}<br></span> ${p1Card.abilityText} </div> 
+        <div class="atk">${p1Card.atk}</div>   
+        <div class="def">${p1Card.def}</div>
+        </div>`
+        const p1cards = document.querySelectorAll('#p1Hand #card');
+        p1cards[i].card = p1Card;
         j += 1
 
     } 
     for(let i = 0;i < 5;i++) {
-        p1Deck.splice(0,1)
+        p1Deck.splice(0,1);
     }
 
     j = 0
     for(let i = 0;i < 5;i++) {
+        const p2Card = p2Deck[i][1];
         p2Hand[j].innerHTML = `<div id="card" draggable="true" ondragstart="onDragStart(event)">
-<div class="spcost">${p2Deck[i][1].spcost}</div>
-<div class="cardimgbox">
-    <!-- <div class="cardimg"></div> -->
-</div>
-<div class="ability"><span class="name">${p2Deck[i][1].name}<br></span> ${p2Deck[i][1].abilityText} </div> 
-<div class="atk">${p2Deck[i][1].atk}</div>   
-<div class="def">${p2Deck[i][1].def}</div>
-</div>`
-        j += 1
+        <div class="spcost">${p2Card.spcost}</div>
+        <div class="cardimgbox">
+            <img class="cardimg" src="${p2Card.img}" alt="${p2Card.name}" draggable='false'>
+            <!-- <div class="cardimg"></div> -->
+        </div>
+        <div class="ability"><span class="name">${p2Card.name}<br></span> ${p2Card.abilityText} </div> 
+        <div class="atk">${p2Card.atk}</div>   
+        <div class="def">${p2Card.def}</div>
+        </div>`
+        
 
+        const p2cards = document.querySelectorAll('#p2Hand #card');
+        p2cards[i].card = p2Card;
+        j += 1
     }
     for(let i = 0;i < 5;i++) {
         p2Deck.splice(0,1)
