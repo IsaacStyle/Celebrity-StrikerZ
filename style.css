@@ -102,7 +102,7 @@ body {
 
 }
 
-#card {
+.card {
     position: absolute;
     height: 252px;
     width: 190px;
@@ -113,7 +113,7 @@ body {
     z-index: 0;
     
 }
-#card:hover {
+.card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.708);
     z-index: 9999;
 }
