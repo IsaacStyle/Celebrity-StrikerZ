@@ -236,7 +236,7 @@ function initialDraw() {
     let j = 0
     for(let i = 0;i < 5;i++) {
         const p1Card = p1Deck[i][1];
-        p1Hand[j].innerHTML = `<div class="card" id="${p1Card.data}${j}" data-nam="${p1Card.data}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)" >
+        p1Hand[i].innerHTML = `<div class="card" id="${p1Card.data}${j}" data-nam="${p1Card.data}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)" >
         <div class="spcost">${p1Card.spcost}</div>
         <div class="cardimgbox" draggable='false'>
             <img class="cardimg" src="${p1Card.img}" alt="${p1Card.name}" draggable='false'>
@@ -277,10 +277,61 @@ function initialDraw() {
     }
 }
 
+function turnDraw() {
+    let j = 0
+    let k = 0
+    for(let i = 0;i < 5;i++) {
+        if (p1Deck.length > 0) {
+        const p1Card = p1Deck[k][1];
+        if (p1Hand[i].innerHTML == "") {
+        p1Hand[i].innerHTML = `<div class="card" id="${p1Card.data}${j}" data-nam="${p1Card.data}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)" >
+        <div class="spcost">${p1Card.spcost}</div>
+        <div class="cardimgbox" draggable='false'>
+            <img class="cardimg" src="${p1Card.img}" alt="${p1Card.name}" draggable='false'>
+        </div>
+        <div class="ability"><span class="name">${p1Card.name}<br></span> ${p1Card.abilityText} </div> 
+        <div class="atk">${p1Card.atk}</div>   
+        <div class="def">${p1Card.def}</div>
+        </div>`
+        const p1cards = document.querySelectorAll('#p1Hand .card');
+        p1cards[i].card = p1Card;
+        k += 1
+        j += 1
+    }
+    }
+}
+    p1Deck.splice(0,k);
+    k = 0
+    for(let i = 0;i < 5;i++) {
+        if (p2Deck.length > 0) {
+            const p2Card = p2Deck[k][1];
+            if (p2Hand[i].innerHTML == "") {
+            p2Hand[i].innerHTML = `<div class="card" id="${p2Card.data}${j}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)">
+            <div class="spcost">${p2Card.spcost}</div>
+            <div class="cardimgbox">
+                <img class="cardimg" src="${p2Card.img}" alt="${p2Card.name}" draggable='false'>
+            </div>
+            <div class="ability"><span class="name">${p2Card.name}<br></span> ${p2Card.abilityText} </div> 
+            <div class="atk">${p2Card.atk}</div>   
+            <div class="def">${p2Card.def}</div>
+            </div>`
+            
+
+            const p2cards = document.querySelectorAll('#p2Hand .card');
+            p2cards[i].card = p2Card;
+            j += 1
+            k += 1
+        }
+    }
+}
+    p2Deck.splice(0,k)
+}
+
 function passTurn() {
     playerTurn = !playerTurn
     turn += 1
-    console.log(turn, playerTurn)
+    turnDraw()
+    console.log(p1Deck, p2Deck)
 }
 function onTurn() {
     passTurn()
@@ -291,7 +342,6 @@ function onTurn() {
                 if (zone.firstChild.card.name == "Megan The Stallion") {
                     zone.firstChild.card.canAtk = 2
                 }
-            console.log(zone.firstChild.card.canAtk)
             }
         }) 
         sp1 += spGain
@@ -305,16 +355,15 @@ function onTurn() {
                 if (zone.firstChild.card.name == "Megan The Stallion") {
                     zone.firstChild.card.canAtk = 2
                 }
-            console.log(zone.firstChild.card.canAtk)
-            if (turn != 2) {
-
-            }  
             }
         })
         turnDisplay.innerText = `Player 2's Turn`
             if (turn != 2) {
             sp2 += spGain 
-            document.querySelector('.spV2').innerText = sp2 
+            document.querySelector('.spV2').innerText = sp2
+            } else if(turn == 2){
+                sp2 += 10
+                document.querySelector('.spV2').innerText = sp2
             }
     }
 }
@@ -357,5 +406,6 @@ shuffleCards(globalShuffle)
 chooseDecks(p1Deck, p2Deck)
 shuffleCards(p1Deck)
 shuffleCards(p2Deck)
+console.log(p1Deck.length, p2Deck.length)
 initialDraw()
-
+console.log(p1Deck.length, p2Deck.length)
