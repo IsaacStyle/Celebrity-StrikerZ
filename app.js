@@ -1,9 +1,5 @@
 /*----- constants -----*/
 // Sp = Star Power
-const p1Deck = []
-const p2Deck = []
-const p1Shuffle = []
-const p2Shuffle = []
 const globalShuffle = []
 const p1Life = document.querySelector('.p1Life')
 const p2Life = document.querySelector('.p2Life')
@@ -11,7 +7,10 @@ const p1Hand = document.querySelectorAll('#p1Hand')
 const p2Hand = document.querySelectorAll('#p2Hand')
 const player1Zones = document.querySelectorAll('#p1Z')
 const player2Zones = document.querySelectorAll('#p2Z')
-const turnSwap = document.querySelector('button')
+const turnSwap = document.querySelector('.ton')
+const reset = document.querySelector('.butt')
+const title = document.querySelector('.title')
+const turnDisplay = document.querySelector('.turnDisplay')
 
 class Card {
     constructor(name, atk, def, spcost, accuracy, dodge, ability, abilityText, img, data, canAtk) {
@@ -80,11 +79,13 @@ Object.entries(celebs).forEach((celeb) => {
 /*----- state variables -----*/
 let playerTurn = true
 let turn = 1
-let player1Life = 30
+let player1Life = 1
 let player2Life = 30
 let sp1 = 25
 let sp2 = 25
 let spGain = 20
+let p1Deck = []
+let p2Deck = []
 
 
 /*----- functions -----*/
@@ -116,6 +117,7 @@ function onDragOver(ev) {
               console.log(document.getElementById(data).parentNode.id)
             ev.target.appendChild(document.getElementById(data))
             sp1 -= document.getElementById(data).card.spcost
+            document.querySelector('.spV1').innerText = sp1
         }
     console.log(ev.path[0].card)
     
@@ -127,6 +129,7 @@ function onDragOver(ev) {
         console.log(document.getElementById(data).parentNode.id)
       ev.target.appendChild(document.getElementById(data))
       sp2 -= document.getElementById(data).card.spcost
+      document.querySelector('.spV2').innerText = sp2
   }
 }
   console.log(sp1, sp2)
@@ -208,19 +211,25 @@ function chooseDecks(player, player2) {
 
 function directDamage(card1) {
     if (Math.random() < card1.accuracy / 100  ) {
-        console.log(player1Life, player2Life)
         if (playerTurn === false) {
             player1Life -= card1.atk
             p1Life.innerText = `Player 1 Life: ${player1Life}`
-            console.log(player1Life, player2Life)
         } else {
             player2Life -= card1.atk
             p2Life.innerText = `Player 2 Life: ${player2Life}`  
         }
     }
     card1.canAtk -= 1
-    // console.log(card1.canAtk)
-    console.log(player1Life, player2Life)
+
+    if (player1Life <= 0) {
+        title.innerText = `PLAYER 2 Has Won The Match!`
+        turnSwap.innerText = `RESET`
+    }
+    if (player2Life <= 0) {
+        title.innerText = `PLAYER 1 Has Won The Match!`
+        turnSwap.innerText = `RESET`
+        
+    }
 }
 
 function initialDraw() {
@@ -267,6 +276,7 @@ function initialDraw() {
         p2Deck.splice(0,1)
     }
 }
+
 function passTurn() {
     playerTurn = !playerTurn
     turn += 1
@@ -282,9 +292,11 @@ function onTurn() {
                     zone.firstChild.card.canAtk = 2
                 }
             console.log(zone.firstChild.card.canAtk)
-            sp1 += spGain
             }
-        })
+        }) 
+        sp1 += spGain
+        document.querySelector('.spV1').innerText = sp1
+        turnDisplay.innerText = `Player 1's Turn`
     }
     if (playerTurn === false) {
         player2Zones.forEach((zone) => {
@@ -295,25 +307,55 @@ function onTurn() {
                 }
             console.log(zone.firstChild.card.canAtk)
             if (turn != 2) {
-            sp2 += spGain  
+
             }  
             }
         })
+        turnDisplay.innerText = `Player 2's Turn`
+            if (turn != 2) {
+            sp2 += spGain 
+            document.querySelector('.spV2').innerText = sp2 
+            }
+    }
+}
+function gameOver() {
+    if(player1Life <= 0 || player2Life <= 0) {
+         p1Deck = []
+         p2Deck = []
+         shuffleCards(globalShuffle)
+         chooseDecks(p1Deck, p2Deck)
+         initialDraw()
+         sp1 = 25
+         sp2 = 25
+         turn = 1
+         player1Life = 30
+         player2Life = 30
+         playerTurn = true
+         turnSwap.innerText = `Turn Swap`
+         title.innerHTML = `<span class="p1Life" id="p1Life" ondrop="onDropBattle(event)" ondragover="onDragOver(event)"> Player 1 Life: 30</span> Celebrity StrikerZ<span class="p2Life" id="p2Life" ondrop="onDropBattle(event)" ondragover="onDragOver(event)">Player 2 Life: 30</span>`
+         document.querySelector('.spV2').innerText = sp2
+         document.querySelector('.spV1').innerText = sp1
+         player1Zones.forEach((zone) => {
+            zone.innerHTML = ''
+         })
+         player2Zones.forEach((zone) => {
+            zone.innerHTML = ''
+         })
     }
 }
 /*----- cached elements  -----*/
 
 
   /*----- event listeners -----*/
+ 
   turnSwap.addEventListener('click', onTurn)
+  turnSwap.addEventListener('click', gameOver)
+
 
 //*-- Main Code --*\\
 shuffleCards(globalShuffle)
-console.log(globalShuffle)
 chooseDecks(p1Deck, p2Deck)
 shuffleCards(p1Deck)
 shuffleCards(p2Deck)
-// console.log(p1Deck[1][1])
-// battle(p1Deck[0][1],p2Deck[0][1])
 initialDraw()
 
