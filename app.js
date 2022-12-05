@@ -1,5 +1,4 @@
 /*----- constants -----*/
-// Sp = Star Power
 const globalShuffle = []
 const p1Life = document.querySelector('.p1Life')
 const p2Life = document.querySelector('.p2Life')
@@ -11,7 +10,7 @@ const turnSwap = document.querySelector('.ton')
 const reset = document.querySelector('.butt')
 const title = document.querySelector('.title')
 const turnDisplay = document.querySelector('.turnDisplay')
-
+// Celebrity Card Constructor
 class Card {
     constructor(name, atk, def, spcost, accuracy, dodge, ability, abilityText, img, data, canAtk) {
         this.name = name
@@ -49,6 +48,7 @@ class Card {
     }
 
 }
+// Celebrity Library
 const celebs = {
 cardib: new Card("CardiB.",3,3,10,100,0,false,"No ability", './Card Images/cardib.jpeg', 'a',1),
 nicki: new Card("Nicki Minaj",4,5,20,100,0,false,"No ability", './Card Images/nicki-minaj.webp', 'b',1),
@@ -71,15 +71,17 @@ rdj: new Card("Robert Downey Jr.",2,5,20,100,0,true,"You gain 5 star power for e
 super: new Card("Henry Cavil",5,8,30,100,0,false,"No Ability", './Card Images/superman.jpeg', 's',1),
 morgan: new Card("Morgan Freeman",3,2,10,100,30,true,"Has a 30% chance to dodge any attack.", './Card Images/morgan.png', 't',1),
 }
+// Pushes library intto an array
 Object.entries(celebs).forEach((celeb) => {
     globalShuffle.push(celeb)
 }
 )
 
 /*----- state variables -----*/
+// Sp = Star Power = The resource with which cards are played.
 let playerTurn = true
 let turn = 1
-let player1Life = 1
+let player1Life = 30
 let player2Life = 30
 let sp1 = 25
 let sp2 = 25
@@ -87,65 +89,55 @@ let spGain = 20
 let p1Deck = []
 let p2Deck = []
 
-
 /*----- functions -----*/
 // Drag Code
+// Allows the drag to occur
 function onDragOver(ev) {
     ev.preventDefault()
   }
-  
+// Allows object's data to be transfered
   function onDragStart(ev) {
     if (playerTurn === true) {
         if (sp1 >= ev.path[0].card.spcost && ev.path[1].id == 'p1Hand' || ev.path[1].id == 'p1Z') {
     ev.dataTransfer.setData("text", ev.target.id,)
-    console.log(ev.path[0].card)
       }
     }
     if (playerTurn === false) {
         if (sp2 > ev.path[0].card.spcost && ev.path[1].id == 'p2Hand' || ev.path[1].id == 'p2Z') {
     ev.dataTransfer.setData("text", ev.target.id,)
-    console.log(ev.path[1].id)
       }
     }
 }
-  
+
+// The cast mechanic, rules for you where and where you can't place cards
   function onDrop(ev) {
       let data = ev.dataTransfer.getData("text")
       if (playerTurn === true) {
           if (ev.path[0].innerHTML == '' && ev.target.className != document.querySelector('.cardimg').className && ev.target.id == 'p1Z' && document.getElementById(data).parentNode.id == 'p1Hand') {
               ev.preventDefault()
-              console.log(document.getElementById(data).parentNode.id)
             ev.target.appendChild(document.getElementById(data))
             sp1 -= document.getElementById(data).card.spcost
             document.querySelector('.spV1').innerText = sp1
-        }
-    console.log(ev.path[0].card)
-    
+        }   
   }
 
   if (playerTurn === false) {
     if (ev.path[0].innerHTML == '' && ev.target.className != document.querySelector('.cardimg').className && ev.target.id == 'p2Z' && document.getElementById(data).parentNode.id == 'p2Hand') {
         ev.preventDefault()
-        console.log(document.getElementById(data).parentNode.id)
       ev.target.appendChild(document.getElementById(data))
       sp2 -= document.getElementById(data).card.spcost
       document.querySelector('.spV2').innerText = sp2
   }
 }
-  console.log(sp1, sp2)
 }
-
+// The battle function
   function onDropBattle(ev) {
       let data = ev.dataTransfer.getData("text")
     if (ev.path[1].id != document.getElementById(data).parentNode.id && turn != 1 && ev.target.id != 'p1Life' && ev.target.id != 'p2Life') {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         let defr = ev.path[0].card
-        console.log(ev.path[1])
-        console.log(document.getElementById(data).childNodes)
         if (document.getElementById(data).id != ev.target.id && atkr.canAtk > 0) {
-            console.log(document.getElementById(data).card)
-            console.log(ev.path[0].card)
             battle(atkr,defr)
         }
         document.getElementById(data).childNodes[9].innerText = `${atkr.def}`
@@ -168,37 +160,31 @@ function onDragOver(ev) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         directDamage(atkr, player2Life)
-    } console.log(player1Life, player2Life)
+    }
   }
-//   if (document.querySelectorAll('.zone')[0].innerHTML == "") {
-//     console.log("ello")
-//   }
 //   Drag Code End
 
 // drag battle code
-
 function battle(card1,card2) {
     if (Math.random() < card1.accuracy / 100 && Math.random() > card2.dodge / 100) {
         card2.takeDamage(card1.atk)
-        console.log(card2.def)
     }
     if (Math.random() < card2.accuracy / 100 && Math.random() > card1.dodge / 100) {
         card1.takeDamage(card2.atk)
-        console.log(card1.def)
     }
 card1.canAtk -= 1
 }
-
+// Card Shuffle
 function shuffleCards(deck) {
 for (let i = deck.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * i);
-    let temp = deck[i];
-    deck[i] = deck[j];
-    deck[j] = temp;
+    let j = Math.floor(Math.random() * i)
+    let temp = deck[i]
+    deck[i] = deck[j]
+    deck[j] = temp
 } 
 }
 
-
+// Chooses the game decks for both players
 function chooseDecks(player, player2) {
     for(let i = 0; i < 10; i++) {
         player.push(globalShuffle[i])
@@ -208,7 +194,7 @@ function chooseDecks(player, player2) {
     }
 }
 
-
+// Function for attacking the player's life
 function directDamage(card1) {
     if (Math.random() < card1.accuracy / 100  ) {
         if (playerTurn === false) {
@@ -231,11 +217,11 @@ function directDamage(card1) {
         
     }
 }
-
+// Generates the starting cards for both players
 function initialDraw() {
     let j = 0
     for(let i = 0;i < 5;i++) {
-        const p1Card = p1Deck[i][1];
+        const p1Card = p1Deck[i][1]
         p1Hand[i].innerHTML = `<div class="card" id="${p1Card.data}${j}" data-nam="${p1Card.data}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)" >
         <div class="spcost">${p1Card.spcost}</div>
         <div class="cardimgbox" draggable='false'>
@@ -245,18 +231,18 @@ function initialDraw() {
         <div class="atk">${p1Card.atk}</div>   
         <div class="def">${p1Card.def}</div>
         </div>`
-        const p1cards = document.querySelectorAll('#p1Hand .card');
-        p1cards[i].card = p1Card;
+        const p1cards = document.querySelectorAll('#p1Hand .card')
+        p1cards[i].card = p1Card
         j += 1
 
     } 
     for(let i = 0;i < 5;i++) {
-        p1Deck.splice(0,1);
+        p1Deck.splice(0,1)
     }
 
    
     for(let i = 0;i < 5;i++) {
-        const p2Card = p2Deck[i][1];
+        const p2Card = p2Deck[i][1]
         p2Hand[i].innerHTML = `<div class="card" id="${p2Card.data}${j}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)">
         <div class="spcost">${p2Card.spcost}</div>
         <div class="cardimgbox">
@@ -268,21 +254,21 @@ function initialDraw() {
         </div>`
         
 
-        const p2cards = document.querySelectorAll('#p2Hand .card');
-        p2cards[i].card = p2Card;
+        const p2cards = document.querySelectorAll('#p2Hand .card')
+        p2cards[i].card = p2Card
         j += 1
     }
     for(let i = 0;i < 5;i++) {
         p2Deck.splice(0,1)
     }
 }
-
+// Generates additional cards for players every turn
 function turnDraw() {
     let j = 0
     let k = 0
     for(let i = 0;i < 5;i++) {
         if (p1Deck.length > 0) {
-        const p1Card = p1Deck[k][1];
+        const p1Card = p1Deck[k][1]
         if (p1Hand[i].innerHTML == "") {
         p1Hand[i].innerHTML = `<div class="card" id="${p1Card.data}${j}" data-nam="${p1Card.data}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)" >
         <div class="spcost">${p1Card.spcost}</div>
@@ -293,18 +279,18 @@ function turnDraw() {
         <div class="atk">${p1Card.atk}</div>   
         <div class="def">${p1Card.def}</div>
         </div>`
-        const p1cards = document.querySelectorAll('#p1Hand .card');
-        p1cards[i].card = p1Card;
+        const p1cards = document.querySelectorAll('#p1Hand .card')
+        p1cards[i].card = p1Card
         k += 1
         j += 1
     }
     }
 }
-    p1Deck.splice(0,k);
+    p1Deck.splice(0,k)
     k = 0
     for(let i = 0;i < 5;i++) {
         if (p2Deck.length > 0) {
-            const p2Card = p2Deck[k][1];
+            const p2Card = p2Deck[k][1]
             if (p2Hand[i].innerHTML == "") {
             p2Hand[i].innerHTML = `<div class="card" id="${p2Card.data}${j}" draggable="true" ondragstart="onDragStart(event)" ondrop="onDropBattle(event)">
             <div class="spcost">${p2Card.spcost}</div>
@@ -318,7 +304,7 @@ function turnDraw() {
             
 
             const p2cards = document.querySelectorAll('#p2Hand .card');
-            p2cards[i].card = p2Card;
+            p2cards[i].card = p2Card
             j += 1
             k += 1
         }
@@ -326,13 +312,13 @@ function turnDraw() {
 }
     p2Deck.splice(0,k)
 }
-
+// The function which increases the turn count
 function passTurn() {
     playerTurn = !playerTurn
     turn += 1
     turnDraw()
-    console.log(p1Deck, p2Deck)
 }
+// Events that happen during the start of every turn
 function onTurn() {
     passTurn()
     if (playerTurn === true) {
@@ -367,6 +353,15 @@ function onTurn() {
             }
     }
 }
+// self explanatory
+function gameStart() {
+    shuffleCards(globalShuffle)
+    chooseDecks(p1Deck, p2Deck)
+    shuffleCards(p1Deck)
+    shuffleCards(p2Deck)
+    initialDraw()
+}
+// function that occurs when the game ends and the reset button is clicked
 function gameOver() {
     if(player1Life <= 0 || player2Life <= 0) {
          p1Deck = []
@@ -402,10 +397,5 @@ function gameOver() {
 
 
 //*-- Main Code --*\\
-shuffleCards(globalShuffle)
-chooseDecks(p1Deck, p2Deck)
-shuffleCards(p1Deck)
-shuffleCards(p2Deck)
-console.log(p1Deck.length, p2Deck.length)
-initialDraw()
-console.log(p1Deck.length, p2Deck.length)
+gameStart()
+
