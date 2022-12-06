@@ -27,3 +27,7 @@ A system to allow for multiple copies of celebrities to be playable at a time.
 An improved gameboard and other stylizations.
 
 More celebrities with more unique abilities.
+
+#### Play It Yourself!
+
+[Celebrity StrikerZ!](https://isaacstyle.github.io/Celebrity-StrikerZ/)
