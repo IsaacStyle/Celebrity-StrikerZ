@@ -184,18 +184,18 @@ function onDragOver(ev) {
 function battle(card1,card2) {
     if (Math.random() < card1.accuracy / 100 && Math.random() > card2.dodge / 100) {
         card2.takeDamage(card1.atk)  
-        if (card2.name == "Robert Downey Jr.") {
-            if (playerTurn == false) {
+        if (card1.name == "Robert Downey Jr.") {
+            if (playerTurn === false) {
                 sp2 += 5
                 document.querySelector('.spV2').innerText = sp2
             } else {
                 sp1 += 5
                 document.querySelector('.spV1').innerText = sp1
             }     
-    }
+        }
     if (Math.random() < card2.accuracy / 100 && Math.random() > card1.dodge / 100) {
         if (card2.name == "Betty White") {
-            if (playerTurn == false) {
+            if (playerTurn === false) {
                 player1Life += 3
                 p1Life.innerText = `Player 1 Life: ${player1Life}`
             } else {
@@ -211,6 +211,7 @@ card1.canAtk -= 1
     if (card1.name == "Chris Helmsworth") {
         card2.loseAttack(2)
         card2.changeAccuracy(50)
+        }
     }
 }
 // Card Shuffle
@@ -401,6 +402,7 @@ function onTurn() {
             }
     }
 }
+
 // self explanatory
 function gameStart() {
     shuffleCards(globalShuffle)
