@@ -246,7 +246,7 @@ function directDamage(card1) {
         }
     }
     card1.canAtk -= 1
-    if (player1Life <= 8 || player2Life <= 8 && musicPause === false) {
+    if (musicPause === false && player1Life <= 8 || player2Life <= 8) {
         musicPause = !musicPause
         myMusic.pause()
         myMusic = new Audio('./Game Music/Pinch.mp3')
