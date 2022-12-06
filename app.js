@@ -59,12 +59,12 @@ peter: new Card("Peter Dinklage",2,1,0,100,0.01,true,"This card requires no star
 megan: new Card("Megan The Stallion",3,4,20,100,0.01,true,"This card can perform 2 attacks per turn", './Card Images/megan.jpeg', 'g',2),
 nas: new Card("Lil Nas X",5,5,30,100,20,true,"While on the stage, your opponent's cards lose 20% accuracy. This card has a 20% chance to dodge any attack.", './Card Images/nas.jpeg', 'h',1),
 terminator: new Card("Arnorld Shwartzenegger",10,10,40,40,0.01,true,"Only has a 40% chance to hit any attack.", './Card Images/terminator.webp', 'i',1),
-betty: new Card("Betty White",1,3,10,100,0.01,true,"Increase your life by 3 points while in battle.", './Card Images/betty.webp', 'j',1),
-obama: new Card("Barack Obama",6,6,40,100,0.01,true,"Raises the attack of all cards on your stage by 2", './Card Images/obama.jpeg', 'k',1),
-taylor: new Card("Taylor Swift",5,5,30,100,0.01,true,"Raises your starpower by 10 when cast and on every turn she remains on the field.", './Card Images/taylor.webp', 'l',1),
-trump: new Card("Donald Trump",6,6,40,100,0.01,true,"Raises the defense of all cards on your stage by 2.", './Card Images/trump.jpeg','m',1),
+betty: new Card("Betty White",1,3,10,100,0.01,true,"Increase your life by 3 points while defending.", './Card Images/betty.webp', 'j',1),
+obama: new Card("Barack Obama",7,6,40,100,0.01,true,"No ability", './Card Images/obama.jpeg', 'k',1),
+taylor: new Card("Taylor Swift",5,5,30,100,0.01,true,"Raises your starpower by 10 when cast.", './Card Images/taylor.webp', 'l',1),
+trump: new Card("Donald Trump",6,7,40,100,0.01,true,"No ability", './Card Images/trump.jpeg','m',1),
 gaga: new Card("Lady Gaga",6,7,30,100,0.01,false,"No Ability", './Card Images/gaga.jpeg', 'n',1),
-harry: new Card("Daniel Radcliffe",2,4,20,100,0.01,true,"Increases the def of all your cards by 1.", './Card Images/harry.jpeg','o',1),
+harry: new Card("Daniel Radcliffe",2,4,20,100,0.01,true,"No ability", './Card Images/harry.jpeg','o',1),
 jim: new Card("Jim Carey",4,2,10,100,0.01,false,"No Ability", './Card Images/jim.webp', 'p',1),
 tom: new Card("Tom Cruise",5,4,20,70,0.01,true,"Has a 70% chance to hit any attack.", './Card Images/tom.jpeg', 'q',1),
 rdj: new Card("Robert Downey Jr.",2,5,20,100,0.01,true,"You gain 5 star power for each battle this card is a part of.", './Card Images/rdj.webp', 'r',1),
@@ -122,6 +122,10 @@ function onDragOver(ev) {
             ev.target.appendChild(document.getElementById(data))
             sp1 -= document.getElementById(data).card.spcost
             document.querySelector('.spV1').innerText = sp1
+            if (document.getElementById(data).card.name == "Taylor Swift") {
+                sp1 += 10
+                document.querySelector('.spV1').innerText = sp1
+            }
             
         }   
   }
@@ -132,6 +136,10 @@ function onDragOver(ev) {
       ev.target.appendChild(document.getElementById(data))
       sp2 -= document.getElementById(data).card.spcost
       document.querySelector('.spV2').innerText = sp2
+      if (document.getElementById(data).card.name == "Taylor Swift") {
+        sp2 += 10
+        document.querySelector('.spV2').innerText = sp2
+    }
   }
 }
 }
@@ -175,10 +183,29 @@ function onDragOver(ev) {
 // drag battle code
 function battle(card1,card2) {
     if (Math.random() < card1.accuracy / 100 && Math.random() > card2.dodge / 100) {
-        card2.takeDamage(card1.atk)       
+        card2.takeDamage(card1.atk)  
+        if (card2.name == "Robert Downey Jr.") {
+            if (playerTurn == false) {
+                sp2 += 5
+                document.querySelector('.spV2').innerText = sp2
+            } else {
+                sp1 += 5
+                document.querySelector('.spV1').innerText = sp1
+            }     
     }
     if (Math.random() < card2.accuracy / 100 && Math.random() > card1.dodge / 100) {
-        card1.takeDamage(card2.atk)
+        if (card2.name == "Betty White") {
+            if (playerTurn == false) {
+                player1Life += 3
+                p1Life.innerText = `Player 1 Life: ${player1Life}`
+            } else {
+                player2Life += 3
+                p2Life.innerText = `Player 2 Life: ${player2Life}` 
+            }
+        }
+        if (card1.name != "Kevin Hart") {
+            card1.takeDamage(card2.atk)
+        }
     }
 card1.canAtk -= 1
     if (card1.name == "Chris Helmsworth") {
