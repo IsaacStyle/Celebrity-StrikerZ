@@ -1,14 +1,14 @@
-Celebrity StrikerZ
+# Celebrity StrikerZ
 
 This is a turn-based, action packed, original card game which takes inspiration from Hearthstone with cards based on celebrities we all know and love.
 
 ![Game](./Gameplay%20images/AF194602-98D9-4C6F-8934-EF2FC79F2CCE.jpeg "Celebrity StrikerZ")
 
-Technologies Used
+## Technologies Used
 
     HTML, CSS, JavaScript, and VSCode.
 
-Getting Started
+## Getting Started
 
 The goal of this game is to bring your opponent's Life down to 0. To do so, you will need to out strategize your opponent with your randomized card set and win in a battle of wits. 
 
@@ -18,7 +18,7 @@ You can choose to either attack your opponent's cards, or attack their life dire
 
 Some cards have special abilties, you can tell what they do by their descriptions in the middle of the card under their portrait. Abilities add an exra layer of unpredicability and strategy to further add to the excitement.
 
-Future Additions
+### Future Additions
 
 A function for each player to choose their cards before the start of the game.
 
