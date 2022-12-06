@@ -50,25 +50,25 @@ class Card {
 }
 // Celebrity Library
 const celebs = {
-cardib: new Card("CardiB.",3,3,10,100,0,false,"No ability", './Card Images/cardib.jpeg', 'a',1),
-nicki: new Card("Nicki Minaj",4,5,20,100,0,false,"No ability", './Card Images/nicki-minaj.webp', 'b',1),
-rock: new Card("Dwayne Johnson",8,8,40,100,0,false,"No ability", './Card Images/therock.webp', 'c',1),
-thor: new Card("Chris Helmsworth", 4,8,30,100,0,true,"Any card attacked by this card loses 2 atk and 50% accuracy.", './Card Images/thor.jpeg', 'd',1),
+cardib: new Card("CardiB.",3,3,10,100,0.01,false,"No ability", './Card Images/cardib.jpeg', 'a',1),
+nicki: new Card("Nicki Minaj",4,5,20,100,0.01,false,"No ability", './Card Images/nicki-minaj.webp', 'b',1),
+rock: new Card("Dwayne Johnson",8,8,40,100,0.01,false,"No ability", './Card Images/therock.webp', 'c',1),
+thor: new Card("Chris Helmsworth", 4,7,30,100,0.01,true,"Any card attacked by this card loses 2 atk and 50% accuracy.", './Card Images/thor.jpeg', 'd',1),
 hart: new Card("Kevin Hart", 2,2,10,100,50,true,"This card has a 50% chance to dodge any attack. Takes no damage while attacking.", './Card Images/960x0.jpeg', 'e',1),
-peter: new Card("Peter Dinklage",2,1,0,100,0,true,"This card requires no star power to cast", './Card Images/peter.webp', 'f',1),
-megan: new Card("Megan The Stallion",3,4,20,100,0,true,"This card can perform 2 attacks per turn", './Card Images/megan.jpeg', 'g',2),
+peter: new Card("Peter Dinklage",2,1,0,100,0.01,true,"This card requires no star power to cast", './Card Images/peter.webp', 'f',1),
+megan: new Card("Megan The Stallion",3,4,20,100,0.01,true,"This card can perform 2 attacks per turn", './Card Images/megan.jpeg', 'g',2),
 nas: new Card("Lil Nas X",5,5,30,100,20,true,"While on the stage, your opponent's cards lose 20% accuracy. This card has a 20% chance to dodge any attack.", './Card Images/nas.jpeg', 'h',1),
-terminator: new Card("Arnorld Shwartzenegger",10,10,40,40,0,true,"Only has a 40% chance to hit any attack.", './Card Images/terminator.webp', 'i',1),
-betty: new Card("Betty White",1,3,10,100,0,true,"Increase your life by 3 points while in battle.", './Card Images/betty.webp', 'j',1),
-obama: new Card("Barack Obama",6,6,40,100,0,true,"Raises the attack of all cards on your stage by 2", './Card Images/obama.jpeg', 'k',1),
-taylor: new Card("Taylor Swift",5,5,30,100,0,true,"Raises your starpower by 10 when cast and on every turn she remains on the field.", './Card Images/taylor.webp', 'l',1),
-trump: new Card("Donald Trump",6,6,40,100,0,true,"Raises the defense of all cards on your stage by 2.", './Card Images/trump.jpeg','m',1),
-gaga: new Card("Lady Gaga",6,7,30,100,0,false,"No Ability", './Card Images/gaga.jpeg', 'n',1),
-harry: new Card("Daniel Radcliffe",2,4,20,100,0,true,"Increases the def of all your cards by 1.", './Card Images/harry.jpeg','o',1),
-jim: new Card("Jim Carey",4,2,10,100,0,false,"No Ability", './Card Images/jim.webp', 'p',1),
-tom: new Card("Tom Cruise",5,4,20,70,0,true,"Has a 70% chance to hit any attack.", './Card Images/tom.jpeg', 'q',1),
-rdj: new Card("Robert Downey Jr.",2,5,20,100,0,true,"You gain 5 star power for each battle this card is a part of.", './Card Images/rdj.webp', 'r',1),
-super: new Card("Henry Cavil",5,8,30,100,0,false,"No Ability", './Card Images/superman.jpeg', 's',1),
+terminator: new Card("Arnorld Shwartzenegger",10,10,40,40,0.01,true,"Only has a 40% chance to hit any attack.", './Card Images/terminator.webp', 'i',1),
+betty: new Card("Betty White",1,3,10,100,0.01,true,"Increase your life by 3 points while in battle.", './Card Images/betty.webp', 'j',1),
+obama: new Card("Barack Obama",6,6,40,100,0.01,true,"Raises the attack of all cards on your stage by 2", './Card Images/obama.jpeg', 'k',1),
+taylor: new Card("Taylor Swift",5,5,30,100,0.01,true,"Raises your starpower by 10 when cast and on every turn she remains on the field.", './Card Images/taylor.webp', 'l',1),
+trump: new Card("Donald Trump",6,6,40,100,0.01,true,"Raises the defense of all cards on your stage by 2.", './Card Images/trump.jpeg','m',1),
+gaga: new Card("Lady Gaga",6,7,30,100,0.01,false,"No Ability", './Card Images/gaga.jpeg', 'n',1),
+harry: new Card("Daniel Radcliffe",2,4,20,100,0.01,true,"Increases the def of all your cards by 1.", './Card Images/harry.jpeg','o',1),
+jim: new Card("Jim Carey",4,2,10,100,0.01,false,"No Ability", './Card Images/jim.webp', 'p',1),
+tom: new Card("Tom Cruise",5,4,20,70,0.01,true,"Has a 70% chance to hit any attack.", './Card Images/tom.jpeg', 'q',1),
+rdj: new Card("Robert Downey Jr.",2,5,20,100,0.01,true,"You gain 5 star power for each battle this card is a part of.", './Card Images/rdj.webp', 'r',1),
+super: new Card("Henry Cavil",5,8,30,100,0.01,false,"No Ability", './Card Images/superman.jpeg', 's',1),
 morgan: new Card("Morgan Freeman",3,2,10,100,30,true,"Has a 30% chance to dodge any attack.", './Card Images/morgan.png', 't',1),
 }
 // Pushes library intto an array
@@ -138,13 +138,13 @@ function onDragOver(ev) {
 // The battle function
   function onDropBattle(ev) {
       let data = ev.dataTransfer.getData("text")
-    if (ev.path[1].id != document.getElementById(data).parentNode.id && turn != 1 && ev.target.id != 'p1Life' && ev.target.id != 'p2Life') {
+    if (ev.path[1].id != document.getElementById(data).parentNode.id && turn != 1 && ev.target.id != 'p1Life' && ev.target.id != 'p2Life' && ev.target.className != document.querySelector('.cardimg').className) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         let defr = ev.path[0].card
         if (document.getElementById(data).id != ev.target.id && atkr.canAtk > 0) {
             battle(atkr,defr)
-            attackSound.play()
+
         }
         document.getElementById(data).childNodes[9].innerText = `${atkr.def}`
         document.getElementById(ev.target.id).childNodes[9].innerText = `${defr.def}`
@@ -161,13 +161,13 @@ function onDragOver(ev) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         directDamage(atkr, player1Life)
-        attackSound.play()
+  
     }
     if (ev.target.id == "p2Life" && document.getElementById(data).parentNode.id == 'p1Z' && turn != 1 && document.getElementById(data).card.canAtk > 0) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         directDamage(atkr, player2Life)
-        attackSound.play()
+
     }
   }
 //   Drag Code End
@@ -175,12 +175,16 @@ function onDragOver(ev) {
 // drag battle code
 function battle(card1,card2) {
     if (Math.random() < card1.accuracy / 100 && Math.random() > card2.dodge / 100) {
-        card2.takeDamage(card1.atk)
+        card2.takeDamage(card1.atk)       
     }
     if (Math.random() < card2.accuracy / 100 && Math.random() > card1.dodge / 100) {
         card1.takeDamage(card2.atk)
     }
 card1.canAtk -= 1
+    if (card1.name == "Chris Helmsworth") {
+        card2.loseAttack(2)
+        card2.changeAccuracy(50)
+    }
 }
 // Card Shuffle
 function shuffleCards(deck) {
@@ -380,9 +384,9 @@ function gameStart() {
     myMusic = new Audio("./Game Music/GameStart.mp3")
     myMusic.volume = 0.2
     turnSound = new Audio("./Game Music/TurnSound.mp3")
-    turnSound.volume = 5
+    turnSound.volume = 1
     attackSound = new Audio("./Game Music/Attack.mp3")
-    attackSound.volume = 3
+    attackSound.volume = 1
 }
 // function that occurs when the game ends and the reset button is clicked
 function gameOver() {
