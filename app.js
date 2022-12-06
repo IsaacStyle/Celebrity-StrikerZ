@@ -88,6 +88,10 @@ let sp2 = 25
 let spGain = 20
 let p1Deck = []
 let p2Deck = []
+let myMusic
+let turnSound
+let attackSound
+let musicPause = false
 
 /*----- functions -----*/
 // Drag Code
@@ -118,6 +122,7 @@ function onDragOver(ev) {
             ev.target.appendChild(document.getElementById(data))
             sp1 -= document.getElementById(data).card.spcost
             document.querySelector('.spV1').innerText = sp1
+            
         }   
   }
 
@@ -139,6 +144,7 @@ function onDragOver(ev) {
         let defr = ev.path[0].card
         if (document.getElementById(data).id != ev.target.id && atkr.canAtk > 0) {
             battle(atkr,defr)
+            attackSound.play()
         }
         document.getElementById(data).childNodes[9].innerText = `${atkr.def}`
         document.getElementById(ev.target.id).childNodes[9].innerText = `${defr.def}`
@@ -155,11 +161,13 @@ function onDragOver(ev) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         directDamage(atkr, player1Life)
+        attackSound.play()
     }
     if (ev.target.id == "p2Life" && document.getElementById(data).parentNode.id == 'p1Z' && turn != 1 && document.getElementById(data).card.canAtk > 0) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
         directDamage(atkr, player2Life)
+        attackSound.play()
     }
   }
 //   Drag Code End
@@ -206,6 +214,13 @@ function directDamage(card1) {
         }
     }
     card1.canAtk -= 1
+    if (player1Life <= 8 || player2Life <= 8 && musicPause === false) {
+        musicPause = !musicPause
+        myMusic.pause()
+        myMusic = new Audio('./Game Music/Pinch.mp3')
+        myMusic.volume = 0.4
+        myMusic.play()
+    }
 
     if (player1Life <= 0) {
         title.innerText = `PLAYER 2 Has Won The Match!`
@@ -317,6 +332,8 @@ function passTurn() {
     playerTurn = !playerTurn
     turn += 1
     turnDraw()
+    myMusic.play()
+    turnSound.play()
 }
 // Events that happen during the start of every turn
 function onTurn() {
@@ -360,10 +377,21 @@ function gameStart() {
     shuffleCards(p1Deck)
     shuffleCards(p2Deck)
     initialDraw()
+    myMusic = new Audio("./Game Music/GameStart.mp3")
+    myMusic.volume = 0.2
+    turnSound = new Audio("./Game Music/TurnSound.mp3")
+    turnSound.volume = 5
+    attackSound = new Audio("./Game Music/Attack.mp3")
+    attackSound.volume = 3
 }
 // function that occurs when the game ends and the reset button is clicked
 function gameOver() {
     if(player1Life <= 0 || player2Life <= 0) {
+        musicPause = !musicPause
+        myMusic.pause()
+        myMusic = new Audio("./Game Music/GameStart.mp3")
+        myMusic.volume = 0.2
+        myMusic.play()
          p1Deck = []
          p2Deck = []
          shuffleCards(globalShuffle)
