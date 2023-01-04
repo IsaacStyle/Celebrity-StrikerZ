@@ -1,5 +1,5 @@
 body {
-    /* background-image: url(https://s.abcnews.com/images/GMA/rock-smith-rt-er220328_1648499750926_hpMain_16x9_1600.jpg); */
+    background-image: url('./Background Image/images.jpeg');
     background-color:rgb(255, 202, 167);
     position: justify;
     margin: 0 auto;
@@ -8,6 +8,7 @@ body {
 .title {
     text-align: center;
     font-size: 50px;
+    color: white;
 }
 .player1 {
     /* border: solid blue; */
@@ -16,6 +17,7 @@ body {
     align-items:center;
     flex-direction: row;
     margin-left: 200px;
+    color: white;
 }
 .player1 div {
     border: solid blue;
@@ -27,6 +29,7 @@ body {
     align-items:center;
     flex-direction: row;
     margin-left: 200px;
+    color: white;
 }
 .player2 div {
     border: solid red;
@@ -42,11 +45,13 @@ body {
     float: left;
     margin-left: 60px;
     font-size: 30px;
+    color: white;
 }
 .p2Life {
     float: right;
     margin-right: 60px;
     font-size: 30px;
+    color: white;
 }
 .player1cards {
     display: flex;
@@ -86,40 +91,43 @@ body {
     margin-left: 277px;
     position:absolute;
     margin-top: -10px;
+    color: white;
 }
 .sp1 {
     float: left;
     margin-left: 250px;
+    color: white;
 }
 .sp2 {
     float: right;
     margin-right: 290px;
+    color: white;
 }
 .spV1 {
     float: left;
     margin-left: 308px;
     margin-top: -35px;
     font-size: 35px;
+    color: white;
 }
 .spV2 {
     float: right;
     margin-right: 350px;
     margin-top: -35px;
     font-size: 35px;
+    color: white;
 }
-
-
-
-
 .sp1value {
     float: left;
     margin-left: 130px;
     display: flex;
+    color: white;
 }
 .sp2value {
     float: right;
     margin-right: 130px;
     display: flex;
+    color: white;
 
 }
 
