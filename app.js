@@ -102,12 +102,12 @@ function onDragOver(ev) {
 // Allows object's data to be transfered
   function onDragStart(ev) {
     if (playerTurn === true) {
-        if (sp1 >= ev.path[0].card.spcost && ev.path[1].id == 'p1Hand' || ev.path[1].id == 'p1Z') {
-    ev.dataTransfer.setData("text", ev.target.id,)
+        if (sp1 >= ev.target.card.spcost && ev.target.parentElement.id == 'p1Hand' || ev.target.parentElement.id == 'p1Z') {
+            ev.dataTransfer.setData("text", ev.target.id,)
       }
     }
     if (playerTurn === false) {
-        if (sp2 > ev.path[0].card.spcost && ev.path[1].id == 'p2Hand' || ev.path[1].id == 'p2Z') {
+        if (sp2 > ev.target.card.spcost && ev.target.parentElement.id == 'p2Hand' || ev.target.parentElement.id == 'p2Z') {
     ev.dataTransfer.setData("text", ev.target.id,)
       }
     }
@@ -117,7 +117,7 @@ function onDragOver(ev) {
   function onDrop(ev) {
       let data = ev.dataTransfer.getData("text")
       if (playerTurn === true) {
-          if (ev.path[0].innerHTML == '' && ev.target.className != document.querySelector('.cardimg').className && ev.target.id == 'p1Z' && document.getElementById(data).parentNode.id == 'p1Hand') {
+          if (ev.target.innerHTML == '' && ev.target.className != document.querySelector('.cardimg').className && ev.target.id == 'p1Z' && document.getElementById(data).parentNode.id == 'p1Hand') {
               ev.preventDefault()
             ev.target.appendChild(document.getElementById(data))
             sp1 -= document.getElementById(data).card.spcost
@@ -131,7 +131,7 @@ function onDragOver(ev) {
   }
 
   if (playerTurn === false) {
-    if (ev.path[0].innerHTML == '' && ev.target.className != document.querySelector('.cardimg').className && ev.target.id == 'p2Z' && document.getElementById(data).parentNode.id == 'p2Hand') {
+    if (ev.target.innerHTML == '' && ev.target.className != document.querySelector('.cardimg').className && ev.target.id == 'p2Z' && document.getElementById(data).parentNode.id == 'p2Hand') {
         ev.preventDefault()
       ev.target.appendChild(document.getElementById(data))
       sp2 -= document.getElementById(data).card.spcost
@@ -146,10 +146,10 @@ function onDragOver(ev) {
 // The battle function
   function onDropBattle(ev) {
       let data = ev.dataTransfer.getData("text")
-    if (ev.path[1].id != document.getElementById(data).parentNode.id && turn != 1 && ev.target.id != 'p1Life' && ev.target.id != 'p2Life' && ev.target.className != document.querySelector('.cardimg').className) {
+    if (ev.target.parentElement.id != document.getElementById(data).parentNode.id && turn != 1 && ev.target.id != 'p1Life' && ev.target.id != 'p2Life' && ev.target.className != document.querySelector('.cardimg').className) {
         ev.preventDefault()
         let atkr = document.getElementById(data).card
-        let defr = ev.path[0].card
+        let defr = ev.target.card
         if (document.getElementById(data).id != ev.target.id && atkr.canAtk > 0) {
             battle(atkr,defr)
 
@@ -162,7 +162,7 @@ function onDragOver(ev) {
             document.getElementById(data).parentNode.innerHTML = ""
             }
         if (defr.def <= 0) {
-            ev.path[1].innerHTML = ""
+            ev.target.parentElement.innerHTML = ""
             }
     } 
     if (ev.target.id == "p1Life" && document.getElementById(data).parentNode.id == 'p2Z' && turn != 1 && document.getElementById(data).card.canAtk > 0) {
