@@ -141,8 +141,9 @@ body {
     width: 190px;
     margin: 2px;
     background-color: rgb(255, 184, 96);
+    background-image: url(https://images.unsplash.com/photo-1613216514014-edb92d8e3e8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8b3JhbmdlJTIwcGF0dGVybnxlbnwwfHwwfHw%3D&w=1000&q=80);
     border-radius: 15px;
-    border: solid;
+    border:solid rgb(0, 0, 0);
     z-index: 0;
     
 }
@@ -170,10 +171,11 @@ body {
  
     height: 15vh;
     width: 9vw;
-    border: solid;
+    color: black !important;
     margin-top: -30px;
     margin-left: 24px;
     z-index: 1;
+    border:solid rgb(0, 0, 0) !important;
     border-radius: 15px;
     background-image: url(https://i.kym-cdn.com/photos/images/original/002/467/715/082.jpg);
     background-size: cover;
@@ -228,16 +230,19 @@ body {
   inline-size: 20vw;
   margin-left: 10px;
   margin-top: -50px;
+  /* font-family: */
 }
 .ability {
     position:absolute;
     font-size: 14px;
     inline-size: 10vw;
-    margin-left: 25px;
+    margin-left: 15px;
     margin-top: 0px;
     margin-bottom: 0px;
     z-index: 0;
     color: black;
+    border:solid rgba(0, 0, 0, 0) !important;
+    text-align: center;
 }
 button {
     margin-left: 268px;
