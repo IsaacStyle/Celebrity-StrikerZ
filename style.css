@@ -1,11 +1,15 @@
 @import url('https://fonts.cdnfonts.com/css/tales-of-scare-black');
-
+* {
+    flex-grow: 0;
+    flex-shrink: 0;
+}
 body {
     background-image: url('./Background Image/images.jpeg');
     background-color:rgb(255, 202, 167);
     position: justify;
     margin: 0 auto;
     background-size: cover;
+    /* overflow-x: scroll; */
 }
 .title {
     text-align: center;
@@ -44,6 +48,7 @@ body {
     margin: 6.5px;
     background-color: grey;
     border-radius: 15px;
+
 }
 .p1Life {
     float: left;
@@ -65,6 +70,7 @@ body {
     float: left;
     margin-left: 10px;
     margin-top: -50px;
+    
 }
 .player2cards {
     display: flex;
@@ -74,6 +80,7 @@ body {
     float: right;
     margin-right: 130px;
     margin-top: -50px;
+    
 }
 .zonecards {
     height: 13vh;
@@ -139,13 +146,13 @@ body {
     position: absolute;
     height: 252px;
     width: 190px;
-    margin: 2px;
+    margin: 0;
     background-color: rgb(255, 184, 96);
     background-image: url(https://images.unsplash.com/photo-1613216514014-edb92d8e3e8d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8b3JhbmdlJTIwcGF0dGVybnxlbnwwfHwwfHw%3D&w=1000&q=80);
     border-radius: 15px;
     border:solid rgb(0, 0, 0);
     z-index: 0;
-    
+    opacity: 1 !important;
 }
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.708);
@@ -169,8 +176,8 @@ body {
 }
 .cardimgbox {
  
-    height: 15vh;
-    width: 9vw;
+    height: 115px;
+    width: 140px;
     color: black !important;
     margin-top: -30px;
     margin-left: 24px;
@@ -186,8 +193,8 @@ body {
 }
 .cardimg {
     max-width: 100%;
-    height: 15vh;
-    width: 9vw;
+    height: 115px;
+    width: 190px;
     border: solid;
     border-radius: 15px;
     z-index: 2;
